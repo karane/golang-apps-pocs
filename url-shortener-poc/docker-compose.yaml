@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  app:
+    build: .
+    container_name: url-shortener
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data:/app/data        # <-- mount host data folder
+      - ./migrations:/app/migrations
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
